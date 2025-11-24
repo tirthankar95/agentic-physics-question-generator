@@ -35,6 +35,7 @@ python physics.py
 ```
 ![Options](src/screenshot.png)
 
+If the code doesn't run due to some collections error, remove the `QdrantDB` folder.
 ## Citation
 
 If you use this codebase, please cite or acknowledge appropriately.

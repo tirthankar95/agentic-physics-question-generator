@@ -2,9 +2,9 @@
     "LANGCHAIN_TRACING_V2": true,
     "LANGCHAIN_ENDPOINT": "https://api.smith.langchain.com",
     "LANGCHAIN_API_KEY": "X",
-    "OPENAI_API_KEY": "X",
+    "OPENAI_API_KEY": "",
     "HUGGINGFACEHUB_API_TOKEN": "X",
-    "BUILD_DATASET": true,
+    "BUILD_DATASET": false,
     "LLM_MODEL": {
         "MAIN_MODEL":  "llm_OpenAI",
         "INNER_MODEL": "gpt-4o-mini",
