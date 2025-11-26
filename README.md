@@ -9,7 +9,7 @@ Generate high-quality, diverse physics word problems using LLMs and agentic Retr
 - **LLM**: RAG chains for question generation.
 - **LLM_CONFIG**: LLM selection/configuration.
     - `BUILD_DATASET`: Save generated questions if true.
-    - `OPENAI_API_KEY`: OpenAI API key.
+    - `OPENAI_API_KEY`: OpenAI API key. It's advisable to use your own OPENAI_API_KEY for beignners to try out the code.
     - `INNER_MODEL`: OpenAI model name.
 - **NOVELTY_SCORE**: Novelty score calculation.
 - **TOPICS**: Topic equations.
