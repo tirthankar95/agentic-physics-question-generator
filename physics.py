@@ -116,7 +116,7 @@ def get_phyQ(topic):
         """
         ins0, ins1, ins2 = (
             "Generate a physics question using all the known and unknown variables. You must use all the variables.\n[variables] ",
-            "\nand you may choose to use the elements from topic phrase.\n[topic phrase] ",
+            "\nAnd you may choose to use the elements from topic phrase.\n[topic phrase] ",
             ". Do not provide solution to the question, as it will be solved directly by the student.",
         )
 
