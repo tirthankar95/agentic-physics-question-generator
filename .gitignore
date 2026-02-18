@@ -6,3 +6,7 @@ __pycache__/
 /LLM_CONFIG/configOpenAI.json
 openai_key.txt
 .vscode/
+TOPICS/simple_motion
+TOPICS/electrostatics
+TOPICS/nuclear_physics
+TOPICS/gravitation

@@ -1,5 +1,6 @@
-from omegaconf import DictConfig
+from UTILS.value_estimate import PhyGraph
 from collections import defaultdict
+from omegaconf import DictConfig
 import numpy as np
 import logging
 
@@ -27,6 +28,7 @@ class GraphEquation:
                     )
                 ]
                 self.adj[i].extend(allEdges)
+        self.rl_obj = PhyGraph(equations, self.adj, cfg, choice)
 
     def _parse(self, equation):
         elements_ = [
@@ -50,7 +52,9 @@ class GraphEquation:
         self.vis[qid] = True
         while len(self.qu):
             src = self.qu.pop(0)
+            # Stop Condition
             if 0.5 + np.random.normal() >= threshold:
+                edgeId = self.rl_obj.predict(src)
                 edgeId = np.random.randint(len(self.adj[src]))
                 edge = self.adj[src][edgeId]
                 if edge[-1] in unk:

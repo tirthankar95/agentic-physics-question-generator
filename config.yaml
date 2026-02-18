@@ -30,3 +30,5 @@ Input:
 Output:
   Dir: "DATASET"
   BUILD: 0
+
+Train: 1

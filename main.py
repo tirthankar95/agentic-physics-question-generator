@@ -2,6 +2,7 @@ import sys
 import json
 import numpy as np
 import pandas as pd
+
 sys.path.insert(0, "LLM_CONFIG")
 from LLM.llm import get_response
 from UTILS.rag_agent import RagAgent
@@ -11,11 +12,13 @@ from UTILS.word_change import replace_words
 from UTILS.graph_chain import GraphEquation
 from omegaconf import DictConfig, OmegaConf
 import logging
+
 logging.basicConfig(
     level=logging.INFO,
     format="[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s",
     datefmt="%H:%M:%S",
 )
+
 
 def generate_question_variables(data, cfg: DictConfig, choice: int):
     equations, units = data["equations"], {}
@@ -46,7 +49,7 @@ def generate_question_variables(data, cfg: DictConfig, choice: int):
             problem += f"{name} = unknown, "
     problem = problem[:-2] + "."
     logging.debug(problem)
-    return problem, eqn, units
+    return problem, eqn, units, obj.rl_obj
 
 
 def beautify(filename, data):
@@ -78,7 +81,7 @@ def get_phyQ(cfg: DictConfig, choice: int):
     topic = cfg.Topics[choice]
     with open(f"{cfg['Input']['TopicsDir']}/{topic['InputFile']}") as file:
         data = json.load(file)
-    with open(cfg['Input']['LLMConfig'], "r") as file:
+    with open(cfg["Input"]["LLMConfig"], "r") as file:
         env = json.load(file)
     env_obj_rag = RagAgent(
         model_name=env["LLM_MODEL"]["INNER_MODEL"],
@@ -91,10 +94,17 @@ def get_phyQ(cfg: DictConfig, choice: int):
         with open(f"{cfg['Output']['Dir']}/{topic['OutputFile']}", "w") as ofile:
             ofile.write("")
 
-    for _ in range(topic['Trials']):
+    for _ in range(topic["Trials"]):
         # 0. Get set of equations to form the question.
-        prompt, sol, units_p = generate_question_variables(data, cfg, choice)
+        prompt, sol, units_p, rl_obj = generate_question_variables(data, cfg, choice)
         logging.info(f"\n[PROMPT] {prompt=}" + "\n" + "-" * 100)
+        if cfg["Train"] != 0:
+            msg = """Rate the generated physics question on solvability and novelty between 0 and 1, 1 being the highest.\n-> """
+            reward = int(input(f"{Style.BRIGHT}{Fore.YELLOW}{msg}{Style.RESET_ALL}"))
+            if 0 <= reward <= 1:
+                rl_obj.fit(reward)
+            rl_obj.save_model()
+        return
         # 1. Change how you get the topic ~ Use an agent_ic RAG
         # topic_words, units_t = env_obj.get_topic_words()
         topic_words, units_t = env_obj_rag.get_topic_phrase(prompt), ""
@@ -115,7 +125,6 @@ def get_phyQ(cfg: DictConfig, choice: int):
             "\nAnd you may choose to use the elements from topic phrase.\n[topic phrase] ",
             ". Do not provide solution to the question, as it will be solved directly by the student.",
         )
-
         prompt = ins0 + prompt + ins1 + topic_words + ins2
         problem = get_response(prompt)
         logging.info(f"\n[FINAL PROMPT] {prompt=}" + "\n" + "-" * 100)
@@ -124,13 +133,22 @@ def get_phyQ(cfg: DictConfig, choice: int):
         print("\n" + f"{Fore.BLACK}{Back.WHITE}--" * 30 + f"{Style.RESET_ALL}" + "\n")
 
         # 4. Push the physics question in a CSV file if it's valid.
-        if cfg['Output']['BUILD']:
+        if cfg["Output"]["BUILD"]:
             with open(f"{cfg['Output']['Dir']}/{topic['OutputFile']}", "a") as file:
                 new_row = {"Prompt": prompt, "Question": problem}
                 df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
                 print(f"{prompt}, {problem}", file=file)
-        beautify(f"{cfg['Input']['TopicsDir']}/{topic['InputFile']}", data)
-    df.to_csv(f"{cfg['Output']['Dir']}/{topic['OutputFile']}", index=False)
+            beautify(f"{cfg['Input']['TopicsDir']}/{topic['InputFile']}", data)
+            df.to_csv(f"{cfg['Output']['Dir']}/{topic['OutputFile']}", index=False)
+
+        # 5. Train RL
+        if cfg["Train"] != 0:
+            msg = """Rate the generated physics question on solvability and novelty 
+between 0 and 1, 1 being the highest.\n-> """
+            reward = int(input(f"{Style.BRIGHT}{Fore.YELLOW}{msg}{Style.RESET_ALL}"))
+            if 0 <= reward <= 1:
+                rl_obj.fit(reward)
+            rl_obj.save_model()
 
 
 def main():
