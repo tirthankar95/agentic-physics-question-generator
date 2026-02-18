@@ -1,29 +1,25 @@
+import sys
 import json
 import numpy as np
 import pandas as pd
-import sys
-from collections import namedtuple
-
 sys.path.insert(0, "LLM_CONFIG")
-from UTILS.utils import GraphEquation, RagAgent, fix
 from LLM.llm import get_response
+from UTILS.rag_agent import RagAgent
 from colorama import Fore, Back, Style
+from UTILS.utils import fix, load_env_vars
 from UTILS.word_change import replace_words
-from UTILS.utils import load_env_vars
-import argparse
+from UTILS.graph_chain import GraphEquation
+from omegaconf import DictConfig, OmegaConf
 import logging
-
 logging.basicConfig(
     level=logging.INFO,
     format="[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s",
     datefmt="%H:%M:%S",
 )
-Topic = namedtuple("Topic", ["name", "collection_name", "in_file", "out_file"])
 
-
-def generate_question_variables(data):
+def generate_question_variables(data, cfg: DictConfig, choice: int):
     equations, units = data["equations"], {}
-    obj = GraphEquation(equations)
+    obj = GraphEquation(equations, cfg, choice)
     unknown, known, eqn = obj.getEquation()
     logging.debug(f"known: {known}, unknown: {unknown}")
     problem = ""
@@ -69,7 +65,7 @@ def get_solution(sol, data):
     return solution
 
 
-def get_phyQ(topic):
+def get_phyQ(cfg: DictConfig, choice: int):
     """
     1. Read topic configs.
     TOPICS/<topic_name>.json contains equations associated with each topic.
@@ -79,27 +75,27 @@ def get_phyQ(topic):
     Generates a physics question TRIAL number of times and saves it to DATASET/<topic_name>.csv
     """
     load_env_vars()
-    with open(f"TOPICS/{topic.in_file}") as file:
+    topic = cfg.Topics[choice]
+    with open(f"{cfg['Input']['TopicsDir']}/{topic['InputFile']}") as file:
         data = json.load(file)
-    with open("LLM_CONFIG/config.json", "r") as file:
+    with open(cfg['Input']['LLMConfig'], "r") as file:
         env = json.load(file)
     env_obj_rag = RagAgent(
         model_name=env["LLM_MODEL"]["INNER_MODEL"],
-        collection_name=topic.collection_name,
+        collection_name=topic["CollectionName"],
     )
     try:
-        df = pd.read_csv(f"DATASET/{topic.out_file}")
+        df = pd.read_csv(f"{cfg['Output']['Dir']}/{topic['OutputFile']}")
     except Exception as e:
         print(f"{Style.BRIGHT}{Fore.RED}Creating file...{Style.RESET_ALL}")
-        with open(f"DATASET/{topic.out_file}", "w") as ofile:
+        with open(f"{cfg['Output']['Dir']}/{topic['OutputFile']}", "w") as ofile:
             ofile.write("")
 
-    for _ in range(TRIALS):
+    for _ in range(topic['Trials']):
         # 0. Get set of equations to form the question.
-        prompt, sol, units_p = generate_question_variables(data)
+        prompt, sol, units_p = generate_question_variables(data, cfg, choice)
         logging.info(f"\n[PROMPT] {prompt=}" + "\n" + "-" * 100)
-
-        # 1. Change how you get the topic ~ Use Agentic RAG
+        # 1. Change how you get the topic ~ Use an agent_ic RAG
         # topic_words, units_t = env_obj.get_topic_words()
         topic_words, units_t = env_obj_rag.get_topic_phrase(prompt), ""
         logging.info(f"\n[TOPIC WORDS] {topic_words=}" + "\n" + "-" * 100)
@@ -127,41 +123,30 @@ def get_phyQ(topic):
         print(f"{Fore.CYAN}[HINT] {get_solution(sol, data).strip()}{Style.RESET_ALL}")
         print("\n" + f"{Fore.BLACK}{Back.WHITE}--" * 30 + f"{Style.RESET_ALL}" + "\n")
 
-        # 5. Push the physics question in a CSV file if it's valid.
-        if env["BUILD_DATASET"]:
-            with open(f"DATASET/{topic.out_file}", "a") as file:
+        # 4. Push the physics question in a CSV file if it's valid.
+        if cfg['Output']['BUILD']:
+            with open(f"{cfg['Output']['Dir']}/{topic['OutputFile']}", "a") as file:
                 new_row = {"Prompt": prompt, "Question": problem}
                 df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
                 print(f"{prompt}, {problem}", file=file)
-        beautify(f"TOPICS/{topic.in_file}", data)
-    df.to_csv(f"DATASET/{topic.out_file}", index=False)
+        beautify(f"{cfg['Input']['TopicsDir']}/{topic['InputFile']}", data)
+    df.to_csv(f"{cfg['Output']['Dir']}/{topic['OutputFile']}", index=False)
 
 
-if __name__ == "__main__":
-    args = argparse.ArgumentParser(
-        description="Argparser for Physics Question Generation."
-    )
-    args.add_argument(
-        "--trials",
-        type=int,
-        default=1,
-        help="Number of physics questions to generate per topic",
-    )
-    TRIALS = args.parse_args().trials
-    topics = [
-        Topic("SIMPLE KINEMATICS", "env_sm", "simple_motion.json", "physics_sm.csv"),
-        Topic("NUCLEAR PHYSICS", "env_np", "nuclear_physics.json", "physics_np.csv"),
-        Topic("GRAVITATION", "env_g", "gravitation.json", "physics_g.csv"),
-        Topic("ELECTROSTATICS", "env_elec", "electrostatics.json", "physics_elec.csv"),
-    ]
+def main():
+    cfg = OmegaConf.load("config.yaml")
     print(
         f"{Style.BRIGHT}{Fore.GREEN}Which topics do you want to generate questions from?\n"
     )
-    for i in range(len(topics)):
-        print(f"{i}. {topics[i][0]}")
+    for i in range(len(cfg.Topics)):
+        print(f"{i}. {cfg.Topics[i].Name}")
     print(f"{Style.RESET_ALL}")
     choice = int(input(f"{Style.BRIGHT}Choose the index of the topic: "))
-    if choice < 0 or choice >= len(topics):
+    if choice < 0 or choice >= len(cfg.Topics):
         print(f"{Style.BRIGHT}Wrong Choice!!\n")
     print(f"{Style.RESET_ALL}")
-    get_phyQ(topics[choice])
+    get_phyQ(cfg, choice)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,32 @@
+Topics:
+  - Name: "SIMPLE KINEMATICS"
+    CollectionName: "env_sm"
+    InputFile: "simple_motion.json"
+    OutputFile: "physics_sm.csv"
+    Trials: 1
+
+  - Name: "NUCLEAR PHYSICS"
+    CollectionName: "env_np"
+    InputFile: "nuclear_physics.json"
+    OutputFile: "physics_np.csv"
+    Trials: 1
+
+  - Name: "GRAVITATION"
+    CollectionName: "env_g"
+    InputFile: "gravitation.json"
+    OutputFile: "physics_g.csv"
+    Trials: 1
+
+  - Name: "ELECTROSTATICS"
+    CollectionName: "env_elec"
+    InputFile: "electrostatics.json"
+    OutputFile: "physics_elec.csv"
+    Trials: 1
+
+Input:
+  TopicsDir: "TOPICS"
+  LLMConfig: "LLM_CONFIG/config.json"
+
+Output:
+  Dir: "DATASET"
+  BUILD: 0
