@@ -100,7 +100,7 @@ def get_phyQ(cfg: DictConfig, choice: int):
         logging.info(f"\n[PROMPT] {prompt=}" + "\n" + "-" * 100)
         if cfg["Train"] != 0:
             msg = """Rate the generated physics question on solvability and novelty between 0 and 1, 1 being the highest.\n-> """
-            reward = int(input(f"{Style.BRIGHT}{Fore.YELLOW}{msg}{Style.RESET_ALL}"))
+            reward = float(input(f"{Style.BRIGHT}{Fore.YELLOW}{msg}{Style.RESET_ALL}"))
             if 0 <= reward <= 1:
                 rl_obj.fit(reward)
             rl_obj.save_model()
