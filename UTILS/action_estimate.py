@@ -21,8 +21,8 @@ class PhyGraph:
             self.action_value = pickle.load(f)
         if debug:
             for k, v in self.action_value.items():
-                logger.info(f"{k}: {v}")
-            logger.info(f"--" * 20)
+                logger.debug(f"{k}: {v}")
+            logger.debug(f"--" * 20)
         return True
 
     def save_model(self):
@@ -81,7 +81,7 @@ class PhyGraph:
             if _next_edge not in unk and _next_eq not in vis:
                 break
             _iter -= 1
-        logger.info(
+        logger.debug(
             f"Parent: {id}, "
             + f"Child: ({_next_eq}, {_next_edge}), "
             + f"Value: {self.action_value[(id, _next_edge)]}, "

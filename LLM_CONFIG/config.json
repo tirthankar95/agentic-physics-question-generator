@@ -2,12 +2,26 @@
     "LANGCHAIN_TRACING_V2": true,
     "LANGCHAIN_ENDPOINT": "https://api.smith.langchain.com",
     "LANGCHAIN_API_KEY": "X",
-    "OPENAI_API_KEY": "",
+    "OPENAI_API_KEY": "X",
+    "ANTHROPIC_API_KEY": "X",
     "HUGGINGFACEHUB_API_TOKEN": "X",
     "BUILD_DATASET": false,
     "LLM_MODEL": {
-        "MAIN_MODEL":  "llm_OpenAI",
-        "INNER_MODEL": "gpt-4o-mini",
-        "MODEL_HISTORY": ["gpt-4o-mini", "gpt-3.5-turbo-instruct", "local"]
+        "MODEL_HISTORY": [
+        {
+            "MAIN_MODEL":  "llm_OpenAI",
+            "INNER_MODEL": "gpt-4o-mini"
+        },
+        {
+            "MAIN_MODEL":  "llm_OpenAI",
+            "INNER_MODEL": "gpt-3.5-turbo-instruct"
+        },
+        {
+            "MAIN_MODEL":  "llm_OpenAI",
+            "INNER_MODEL": "local"
+        }
+    ],
+        "MAIN_MODEL":  "llm_Anthropic",
+        "INNER_MODEL": "claude-3-haiku-20240307"
     }
 }

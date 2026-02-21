@@ -27,15 +27,30 @@ This project uses an agentic RAG pipeline to iteratively retrieve and refine con
 ![Options](src/Architecture.png)
 
 ## How to Run
-`physics.py` is the main entry point. 
+`main.py` is the main entry point. 
 Currently we have added the following topics.(see picture below) 
 
 ```bash
-python physics.py
+python main.py
 ```
-![Options](src/screenshot.png)
+![Image of topic-selection](src/terminal1.png)
 
 If the code doesn't run due to some collections error, remove the `QdrantDB` folder.
+
+The config file(config.yaml, shown below) is where the main program reads the configuration.
+
+<img src="src/config.png" alt="Image of config file" style="width:480px;"/>
+
+- The section highlighted as **(1)** indicates where you add a new topic. You can control how many questions you generate at one go by controlling `Trials`. 
+- The section highlighted as **(2)** is where the configuration for each topic is loaded, along with the LLM configuration file (e.g., API keys and model name).  
+- The section highlighted as **(3)** shows the directory where outputs are saved. Enabling `BUILD` allows you to add new questions to the dataset.  
+- The section highlighted as **(4)** enables Monte Carlo, value-based updates of Q-functions in the reinforcement learning pipeline.
+
+If `Train` is enabled you'll get a prompt at the end(shown in yellow)
+
+<img src="src/terminal2.png" alt="Image of rl-reward input" style="width:640px;"/>
+
+You can specify a reward to balance solvability and novelty according to your preference.
 ## Citation
 
 If you use this codebase, please cite or acknowledge appropriately.

@@ -98,13 +98,7 @@ def get_phyQ(cfg: DictConfig, choice: int):
         # 0. Get set of equations to form the question.
         prompt, sol, units_p, rl_obj = generate_question_variables(data, cfg, choice)
         logging.info(f"\n[PROMPT] {prompt=}" + "\n" + "-" * 100)
-        if cfg["Train"] != 0:
-            msg = """Rate the generated physics question on solvability and novelty between 0 and 1, 1 being the highest.\n-> """
-            reward = float(input(f"{Style.BRIGHT}{Fore.YELLOW}{msg}{Style.RESET_ALL}"))
-            if 0 <= reward <= 1:
-                rl_obj.fit(reward)
-            rl_obj.save_model()
-        return
+
         # 1. Change how you get the topic ~ Use an agent_ic RAG
         # topic_words, units_t = env_obj.get_topic_words()
         topic_words, units_t = env_obj_rag.get_topic_phrase(prompt), ""

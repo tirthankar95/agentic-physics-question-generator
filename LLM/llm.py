@@ -1,18 +1,15 @@
 import json 
-from colorama import Style, Fore
-from LLM import (
-    llm_GPT2, 
-    llm_RAG_Hgf, 
-    llm_OpenAI
-)
+import LLM 
 
 with open("LLM_CONFIG/config.json", "r") as file:
     data = json.load(file)
 
-def get_response(question):
-    if data["LLM_MODEL"]["MAIN_MODEL"] == "llm_GPT2":
-        return llm_GPT2.get_response(question)
-    if data["LLM_MODEL"]["MAIN_MODEL"] == "llm_RAG":
-        return llm_RAG_Hgf.get_response(question, data["LLM_MODEL"]["INNER_MODEL"])
+def get_llm_obj(model_name):
     if data["LLM_MODEL"]["MAIN_MODEL"] == "llm_OpenAI":
-        return llm_OpenAI.get_response(question, data["LLM_MODEL"]["INNER_MODEL"])
+        return LLM.OpenAILLM(model_name)
+    if data["LLM_MODEL"]["MAIN_MODEL"] == "llm_Anthropic":
+        return LLM.AnthropicLLM(model_name)
+    
+def get_response(question) -> str:
+    obj = get_llm_obj(data["LLM_MODEL"]["INNER_MODEL"])
+    return obj.get_response(question)

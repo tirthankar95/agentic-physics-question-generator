@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 from langgraph.graph import StateGraph, START, END
 from langchain_core.messages import SystemMessage, HumanMessage
 from typing import Literal, TypedDict, Optional
-
+from LLM.llm import get_llm_obj
 logger = logging.getLogger(__name__)
 
 
@@ -25,14 +25,8 @@ If you do not need to fetch additional data keep the vector_sentence as empty.""
         )
 
     def __init__(self, model_name, collection_name):
-        import os
-        import sys
-
-        sys.path.insert(0, os.getcwd())
-        from LLM.llm_OpenAI import get_llm
-
         self.model_name = model_name
-        self.llm = get_llm(model_name)
+        self.llm = get_llm_obj(model_name).get_client()
         self.llm_fetch = self.llm.with_structured_output(self.FetchAgentResponse)
         self.collection_name = collection_name
         self.rag = RagDB(collection_name)

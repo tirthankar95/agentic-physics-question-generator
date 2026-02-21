@@ -1,6 +1,7 @@
 import nltk 
 from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize 
+from LLM.llm import get_response
 from nltk import pos_tag
 from typing import Literal
 
@@ -33,7 +34,6 @@ def replace_words_wordnet(sentence, units):
     return " ".join(synsets)
 
 def replace_words_llm(sentence):
-    from LLM.llm import get_response
     instructions = """To increase the diversity and creativeness of the sentence change some words of the following sentence.
 Do not provide any suggestions or add extra explanations, just output the final sentence.\n"""
     return get_response(instructions + sentence)
