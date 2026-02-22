@@ -106,9 +106,10 @@ class PhyGraph:
                 lr *(reward + gamma * prev)
             )
             prev = self.action_value[(s, a)]
-            for _s, _a in self.action_value.keys():
-                if s == _s:
-                    prev = max(prev, self.action_value[(_s, _a)])
+            # Q - Learning update
+            # for _s, _a in self.action_value.keys():
+            #     if s == _s:
+            #         prev = max(prev, self.action_value[(_s, _a)])
             # Current reward, we want the reward to propagate back to the first action in the trajectory
             reward = 0.0 
         # Update epsilon
