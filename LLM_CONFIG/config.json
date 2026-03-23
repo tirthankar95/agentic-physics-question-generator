@@ -3,7 +3,7 @@
     "LANGCHAIN_ENDPOINT": "https://api.smith.langchain.com",
     "LANGCHAIN_API_KEY": "X",
     "OPENAI_API_KEY": "X",
-    "ANTHROPIC_API_KEY": "X",
+    "ANTHROPIC_API_KEY": "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",
     "HUGGINGFACEHUB_API_TOKEN": "X",
     "BUILD_DATASET": false,
     "LLM_MODEL": {

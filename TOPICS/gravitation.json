@@ -1,10 +1,10 @@
 {
      "topic": "gravitaion",
      "equations": [
-          "F = ( G * m1 * m2 ) / ( r ^ 2 )",
-          "U = F * r",
+          "F = ( G * m1 * m2 ) / ( ( r - ( r1 + r2 ) + ( r1 + r2 ) ) ^ 2 )",
+          "U = - F * ( r - ( r1 + r2 ) + ( r1 + r2 ) )",
           "V = U / m1",
-          "r = ( T1 ^ 2 ) * r1 / ( T2 ^ 2 )",
+          "o1 = ( ( T1 ^ 2 ) * ( o2 ^ 3 ) / ( T2 ^ 2 ) ) ^ ( 1 / 3 )",
           "E = 0.5 * m1 * v ^ 2 + U"
      ],
      "variable_names": {
@@ -51,7 +51,7 @@
           "r": [
                "distance between two bodies",
                [
-                    1000000.0,
+                    2000000.0,
                     1e+16
                ],
                "m",
@@ -59,10 +59,40 @@
                "R"
           ],
           "r1": [
-               "distance between two bodies",
+               "radius of mass1",
+               [
+                    10000.0,
+                    1000000.0
+               ],
+               "m",
+               "V",
+               "R"
+          ],
+          "r2": [
+               "radius of mass2",
+               [
+                    10000.0,
+                    1000000.0
+               ],
+               "m",
+               "V",
+               "R"
+          ],
+          "o1": [
+               "semi-major axis of object 1",
                [
                     1000000.0,
-                    1e+16
+                    1e+9
+               ],
+               "m",
+               "V",
+               "R"
+          ],
+          "o2": [
+               "semi-major axis of object 1",
+               [
+                    1000000.0,
+                    1e+9
                ],
                "m",
                "V",

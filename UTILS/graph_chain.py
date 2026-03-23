@@ -1,6 +1,7 @@
 from UTILS.action_estimate import PhyGraph
 from collections import defaultdict
 from omegaconf import DictConfig
+from typing import List 
 import numpy as np
 import logging
 
@@ -8,7 +9,8 @@ logger = logging.getLogger(__name__)
 
 
 class GraphEquation:
-    operators = ["+", "*", "=", "/", "^", "(", ")", "-", "exp("]
+    operators = ["+", "*", "=", "/", "^", "(", ")", "-", \
+                 "exp(", "pow(", "sin(", "cos(", "tan(", "tanh("]
 
     def __init__(self, equations, cfg: DictConfig, choice: int):
         self.equation_element = []
@@ -30,7 +32,15 @@ class GraphEquation:
                 self.adj[i].extend(allEdges)
         self.rl_obj = PhyGraph(self.equation_element, self.adj, cfg, choice)
 
-    def _parse(self, equation):
+    def _parse(self, equation: str) -> List[str]:
+        """Extracts variables from equations by removing operators, constants, etc.
+
+        Args:
+            equation(str): The string containing the equation.
+
+        Returns:
+            List of variables in an equation.
+        """
         elements_ = [
             var
             for var in equation.split(" ")
@@ -38,13 +48,16 @@ class GraphEquation:
         ]
         elements = []
         for x in elements_:
-            try:
+            try: # Remove constants.
                 var = float(x)
             except:
                 elements.append(x)
         return elements
 
     def getEquation(self):
+        """Traverse the topic specific equation graph create known and unkwon variables
+           for the N equations.
+        """
         qid = np.random.randint(len(self.adj))
         threshold, eqn = 0.25, [qid]
         self.vis, unk = defaultdict(bool), defaultdict(bool)
