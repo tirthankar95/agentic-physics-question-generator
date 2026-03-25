@@ -1,0 +1,178 @@
+Prompt,Question
+"Generate a physics question using all the known and unknown variables. You must use all the variables.
+[variables] total electrostatic energy = 7.27e-06 J, mass of particle = 5.61e-04 kg, velocity of particle = 42568.84 m/s, electrostatic potential energy = unknown.
+And you may choose to use the elements from topic phrase.
+[topic phrase] 1. Summary:
+The user's query is about estimating the accelerations of an electron and a proton due to their mutual electrical attraction when they are 1 Å (10^-10 m) apart. The query also mentions the masses of the electron (me = 9.11 x 10^-31 kg) and the proton (mp = 1.67 x 10^-27 kg).
+
+2. Corrected query:
+Estimate the accelerations of the electron and the proton due to their mutual electrical attraction when they are 1 Å (10^-10 m) apart. The masses of the electron and the proton are me = 9.11 x 10^-31 kg and mp = 1.67 x 10^-27 kg, respectively.
+
+3. Frequent topic words and phrases:
+- Electron and proton
+- Mutual electrical attraction
+- Distance of 1 Å (10^-10 m)
+- Masses of electron (me = 9.11 x 10^-31 kg) and proton (mp = 1.67 x 10^-27 kg)
+- Acceleration
+- Electrical force
+- Gravitational force. Do not provide solution to the question, as it will be solved directly by the student.","Given the following variables:
+- Total electrostatic energy = 7.27e-06 J
+- Mass of particle = 5.61e-04 kg
+- Velocity of particle = 42568.84 m/s
+- Electrostatic potential energy = unknown
+
+And the topic phrase:
+The user's query is about estimating the accelerations of an electron and a proton due to their mutual electrical attraction when they are 1 Å (10^-10 m) apart. The query also mentions the masses of the electron (me = 9.11 x 10^-31 kg) and the proton (mp = 1.67 x 10^-27 kg).
+
+Question:
+An electron and a proton are separated by a distance of 1 Å (10^-10 m). Given the masses of the electron (me = 9.11 x 10^-31 kg) and the proton (mp = 1.67 x 10^-27 kg), calculate the accelerations of the electron and the proton due to their mutual electrical attraction.
+
+To solve this problem, you will need to use the following equations:
+
+1. Electrostatic force between the electron and the proton:
+   F_e = k_e * (q_e * q_p) / r^2
+   where:
+   k_e = Coulomb constant (8.99 x 10^9 N⋅m^2/C^2)
+   q_e = charge of the electron (-1.602 x 10^-19 C)
+   q_p = charge of the proton (+1.602 x 10^-19 C)
+   r = distance between the electron and the proton (1 Å = 10^-10 m)
+
+2. Acceleration of the electron and the proton:
+   a_e = F_e / m_e
+   a_p = F_e / m_p
+   where:
+   a_e = acceleration of the electron
+   a_p = acceleration of the proton
+   m_e = mass of the electron (9.11 x 10^-31 kg)
+   m_p = mass of the proton (1.67 x 10^-27 kg)
+
+Use the given information and the provided equations to calculate the accelerations of the electron and the proton. Show your work and provide the final answers."
+"Generate a physics question using all the known and unknown variables. You must use all the variables.
+[variables] electric field strength = 2.28e+05 N/C, charge of particle 1 = 7.85e-07 C, electrostatic force = unknown.
+And you may choose to use the elements from topic phrase.
+[topic phrase] 1. Summary:
+The query is about electrostatic force and electric field calculations involving charged spheres. The key topics and phrases are:
+- Two charged copper spheres A and B
+- Mutual electrostatic repulsion force
+- Charge and distance between the spheres
+- Effect of doubling the charge and halving the distance
+- Electric field and force on a negative test charge at the midpoint of two charges
+- Total charge and electric dipole moment of a system with two charges
+
+2. Corrected query:
+
+a) Two insulated charged copper spheres A and B have their centers separated by a distance of 50 cm. The charge on each sphere is 6.5 × 10^-7 C. The radii of A and B are negligible compared to the distance of separation. What is the mutual force of electrostatic repulsion between the spheres?
+
+b) What is the force of repulsion if each sphere is charged with double the above amount and the distance between them is halved?
+
+Figure 1.30 shows tracks of three charged particles in a uniform vacuum.
+
+a) What is the electric field at the midpoint O of the line AB joining the two charges?
+
+b) If a negative test charge of magnitude 1.5 × 10^-9 C is placed at this point, what is the force experienced by the test charge?
+
+A system has two charges qA = 2.5 × 10^-7 C and qB = -2.5 × 10^-7 C located at points A (0, 0, -15 cm) and B (0, 0, 15 cm) respectively. What are the total charge and electric dipole moment of the system?
+
+3. Frequently occurring topic words and phrases:
+- Charged spheres/particles
+- Electrostatic repulsion/force
+- Electric field
+- Test charge
+- Total charge
+- Electric dipole moment. Do not provide solution to the question, as it will be solved directly by the student.","Here is a physics question that uses all the given variables:
+
+Two charged copper spheres A and B are separated by a distance of 0.5 m. The charge on each sphere is 7.85e-07 C, and the electric field strength between them is 2.28e+05 N/C. What is the electrostatic force between the two spheres?
+
+To solve this problem, you can use the formula for the electrostatic force between two point charges:
+
+F = k * (q1 * q2) / r^2
+
+Where:
+- F is the electrostatic force (unknown)
+- k is the Coulomb constant (8.99e+09 N·m^2/C^2)
+- q1 and q2 are the charges on the spheres (7.85e-07 C each)
+- r is the distance between the centers of the spheres (0.5 m)
+
+Plugging in the values, you can calculate the electrostatic force between the two spheres."
+"Generate a physics question using all the known and unknown variables. You must use all the variables.
+[variables] electrostatic potential energy = 8.99e-06 J, Coulomb's constant = 8.99e+09 Nm^2C^-2, charge of particle 2 = 1.58e-07 C, distance between charges = 9.16 m, charge of particle 1 = unknown, capacitance = unknown, electric potential = unknown.
+And you may choose to use the elements from topic phrase.
+[topic phrase] 1. The individual is inquiring about the electrostatic field, the polarities of the three charges, and the particle with the greatest charge-to-mass ratio.
+
+2. The individual has furnished details about an electric dipole, encompassing the orientation of the dipole, the midpoint of the dipole, and the overall charge of the electric dipole.
+
+3. The individual has also provided information about Coulomb's law, the principle of superposition, and a basic device to detect charge, the gold leaf electroscope.
+
+4. The user is asking about the signs of the three charges and the particle with the highest charge to mass ratio.. Do not provide solution to the question, as it will be solved directly by the student.","Given the information provided, the physics question that can be generated using all the known and unknown variables is:
+
+""An electric dipole is formed by two charges, with one charge being 1.58e-07 C and the other charge being unknown. The distance between the charges is 9.16 m, and the electrostatic potential energy of the system is 8.99e-06 J. Given Coulomb's constant of 8.99e+09 Nm^2C^-2, what are the signs of the two charges, the value of the unknown charge, the capacitance, and the electric potential of the system? Which of the two charges has the greatest charge-to-mass ratio?""
+
+This question covers the topics of electrostatic field, polarities of charges, charge-to-mass ratio, electric dipole, Coulomb's law, and the principle of superposition, as mentioned in the topic phrase."
+"Generate a physics question using all the known and unknown variables. You must use all the variables.
+[variables] enclosed charge = 3.50e-07 C, vacuum permittivity = 8.85e-12 C^2N^-1m^-2, electric flux = unknown.
+And you may choose to use the elements from topic phrase.
+[topic phrase] The fundamental principles regulating the interaction between electrically charged entities are elucidated, with a focus on Coulomb's law, electric field, and associated phenomena. The discourse delves into the utilization of more manageable units, the mathematical expression of Coulomb's law, and the concept of permittivity of free space. Furthermore, the text examines the electric field and flux through a Gaussian surface, and demonstrates how Gauss's law can be applied to determine the electric field in specific scenarios, such as that of a uniformly charged thin shell.. Do not provide solution to the question, as it will be solved directly by the student.","Using the given variables and the topic phrase, the following physics question can be generated:
+
+The electric flux through a Gaussian surface surrounding the enclosed charge of 3.50e-07 C in a vacuum is unknown. Given the vacuum permittivity of 8.85e-12 C^2N^-1m^-2, determine the electric flux through the Gaussian surface using Gauss's law."
+"Generate a physics question using all the known and unknown variables. You must use all the variables.
+[variables] electric potential = 195.74 V, charge of particle 1 = -5.86e-09 C, electrostatic potential energy = unknown.
+And you may choose to use the elements from topic phrase.
+[topic phrase] The key topics and themes in the user's query are:
+- Timing of the descent
+- Distinction from unencumbered plunge under gravitational pull
+- Electron encounters a downward force due to an upward electric field
+- Acceleration of the electron depends on the electric field and the electron's mass
+- Duration necessary for the electron to traverse a distance is calculated based on the acceleration
+
+The query appears to be grammatically sound, though it could be reworded as:
+
+""Contrast the time of fall for an electron in an upward electric field to the case of free fall under gravity."". Do not provide solution to the question, as it will be solved directly by the student.","Calculate the electrostatic potential energy of a particle with charge -5.86e-09 C when placed in an electric potential of 195.74 V.
+
+Given:
+- Electric potential (V) = 195.74 V
+- Charge of particle 1 (q) = -5.86e-09 C
+- Electrostatic potential energy (U) = unknown
+
+The formula for electrostatic potential energy is:
+U = q × V
+
+To calculate the electrostatic potential energy, we can substitute the given values:
+U = -5.86e-09 C × 195.74 V
+U = -1.148 × 10^-6 J
+
+Therefore, the electrostatic potential energy of the particle with charge -5.86e-09 C placed in an electric potential of 195.74 V is -1.148 × 10^-6 J."
+"Generate a physics question using all the known and unknown variables. You must use all the variables.
+[variables] electric field strength = 8.54e+05 N/C, surface area = 0.43 m^2, electric flux = unknown.
+And you may choose to use the elements from topic phrase.
+[topic phrase] The fundamental concepts in the domain of electricity and magnetism encompass the interplay between electric charges, fields, and flux. Specifically, the definition and calculation of electric flux, as well as the relationship between the electric field, charge, and flux for a point charge, are crucial understandings. Furthermore, determining the charge on a conducting sphere given the electric field is a valuable skill in this field.. Do not provide solution to the question, as it will be solved directly by the student.","Given the known variables of electric field strength (8.54e+05 N/C) and surface area (0.43 m^2), and the unknown variable of electric flux, the following physics question can be formulated:
+
+What is the electric flux through a conducting spherical surface with a surface area of 0.43 m^2, given that the electric field strength at the surface is 8.54e+05 N/C?
+
+This question is related to the fundamental concepts in the domain of electricity and magnetism, specifically the definition and calculation of electric flux, as well as the relationship between the electric field, charge, and flux for a point charge. Additionally, determining the charge on a conducting sphere given the electric field is a valuable skill in this field."
+"Generate a physics question using all the known and unknown variables. You must use all the variables.
+[variables] electrostatic potential energy = 9.88e-06 J, Coulomb's constant = 8.99e+09 Nm^2C^-2, charge of particle 2 = 7.77e-09 C, distance between charges = 8.29 m, charge of particle 1 = unknown.
+And you may choose to use the elements from topic phrase.
+[topic phrase] Electrostatic distribution. Provide the polarities of the three charges. Which entity exhibits the greatest charge-to-mass proportion?. Do not provide solution to the question, as it will be solved directly by the student.","Given the variables provided, the following physics question can be generated:
+
+In an electrostatic distribution, the electrostatic potential energy between two charged particles is 9.88e-06 J. The Coulomb's constant is 8.99e+09 Nm^2C^-2, and the charge of particle 2 is 7.77e-09 C. The distance between the two charges is 8.29 m. Determine the charge of particle 1, the polarities of the three charges, and which entity exhibits the greatest charge-to-mass proportion."
+"Generate a physics question using all the known and unknown variables. You must use all the variables.
+[variables] capacitance = 8.00e-07 F, electric potential = 839.23 V, electrostatic potential energy = unknown.
+And you may choose to use the elements from topic phrase.
+[topic phrase] 1. The summary of the user's query includes the following key topics and phrases:
+- EB = E1B, E2B = 3.2, 104 N/C
+- EB is directed towards the left
+- Magnitude of electric field vectors at point C due to charges q1 and q2
+- Resultant of the two electric field vectors at point C
+- EC points towards the right
+- Electric field lines around a charge Q
+- Equation defining the SI unit of electric field as N/C
+- Expressions for electric field due to a thin spherical shell of uniform surface charge density
+
+2. The language has been corrected as follows:
+- The user's query has been written in proper English.
+- Numbers have been removed as per the instructions.
+
+3. The key topic words and phrases are:
+electric field, magnitude, direction, resultant, electric field lines, Coulomb's law, superposition principle, thin spherical shell, uniform surface charge density.. Do not provide solution to the question, as it will be solved directly by the student.","Given the variables: capacitance = 8.00e-07 F, electric potential = 839.23 V, and electrostatic potential energy = unknown, and the topic phrases provided, the following physics question can be generated:
+
+A thin spherical shell of uniform surface charge density Q is located at the origin. Two point charges, q1 and q2, are placed at positions B1 and B2, respectively, relative to the center of the spherical shell. The electric field vectors at point C, due to the charges q1 and q2, are denoted as E1B and E2B, respectively. Given that E1B = E2B = 3.2 × 104 N/C and EB (the resultant of E1B and E2B) is directed towards the left, determine the electrostatic potential energy stored in the system."

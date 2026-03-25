@@ -5,11 +5,12 @@
           "U = ( k * q1 * q2 ) / r",
           "V = U / q1",
           "E_field = F / q1",
-          "C = q1 / V",
+          "C = Q / V",
+          "C = epsilon_0 * epsilon_r * A_cap / d",
+          "C = epsilon_0 * epsilon_r * 4 * 22 / 7 * ( R1 * R2 ) / ( R2 - R1 )",
           "U = 0.5 * C * V ^ 2",
           "Phi = E_field * A",
-          "q_enc = epsilon_0 * Phi",
-          "E_total = 0.5 * m * v ^ 2 + U"
+          "q_enc = epsilon_0 * Phi"
      ],
      "variable_names": {
           "F": [
@@ -32,11 +33,21 @@
                "S",
                "R"
           ],
+          "Q": [
+               "capacitor charge",
+               [
+                    1e-08,
+                    1e-06
+               ],
+               "C",
+               "S",
+               "R"
+          ],
           "q1": [
                "charge of particle 1",
                [
-                    1e-19,
-                    1e-06
+                    -1e-08,
+                    1e-08
                ],
                "C",
                "S",
@@ -45,8 +56,8 @@
           "q2": [
                "charge of particle 2",
                [
-                    1e-19,
-                    1e-06
+                    -1e-08,
+                    1e-08
                ],
                "C",
                "S",
@@ -142,26 +153,6 @@
                "S",
                "R"
           ],
-          "m": [
-               "mass of particle",
-               [
-                    1e-31,
-                    0.001
-               ],
-               "kg",
-               "S",
-               "R"
-          ],
-          "v": [
-               "velocity of particle",
-               [
-                    100.0,
-                    1000000.0
-               ],
-               "m/s",
-               "S",
-               "R"
-          ],
           "A": [
                "surface area",
                [
@@ -169,6 +160,66 @@
                     1
                ],
                "m^2",
+               "S",
+               "R"
+          ],
+          "A_cap": [
+               "surface area of capacitor",
+               [
+                    1e-06,
+                    1
+               ],
+               "m^2",
+               "S",
+               "R"
+          ],
+          "A_cap_sp": [
+               "surface area of spherical capacitor",
+               [
+                    1e-06,
+                    1
+               ],
+               "m^2",
+               "S",
+               "R"
+          ],
+          "R1": [
+               "inner sphere radius of spherical capacitory",
+               [
+                    0.1,
+                    10
+               ],
+               "m",
+               "S",
+               "R"
+          ],
+          "R2": [
+               "outer sphere radius of spherical capacitory",
+               [
+                    11,
+                    20
+               ],
+               "m",
+               "S",
+               "R"
+          ],
+          "d": [
+               "distance b/w parallel plate capacitor",
+               [
+                    0.0001,
+                    1
+               ],
+               "mm",
+               "S",
+               "R"
+          ],
+          "epsilon_r": [
+               "relative permittivity",
+               [
+                    0.001,
+                    1
+               ],
+               "",
                "S",
                "R"
           ]
