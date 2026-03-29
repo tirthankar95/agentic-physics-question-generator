@@ -13,7 +13,7 @@ from typing import Optional, Literal
 import logging
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.WARN, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -27,6 +27,7 @@ class TrustedEditingGraph(TypedDict):
     physics_question_frmt: str  # Store the formatted physics question.
     # OUTPUT 2 ~ loops.
     verdict: str  # Whether a question can be solved.
+    solution: Optional[str]  # Store the solution if the question is solvable.
     final_question: str  # Store the final question.
     # FINAL OUTPUT
     final_question_clean: str  # Store the final question.

@@ -1,0 +1,16 @@
+Prompt,Question
+"Generate a physics question using all the known and unknown variables. You must use all the variables.
+[variables] displacement = 43 m at an angle 62 degrees with the horizontal, initial velocity = 76 m/s at an angle 77 degrees with the horizontal, time = 98 s, horizontal component of acceleration = unknown, vertical component of acceleration = unknown, horizontal component of final velocity = unknown, vertical component of final velocity = unknown.
+And you may choose to use the elements from topic phrase.
+[topic phrase] The user's query explores the kinematic formulas that connect the temporal parameter (t), the initial speed (v0), the final speed (v), and the acceleration (a) of an object. The equations are:
+
+v = v0 + at
+x = v0t + 1/2at^2
+v^2 = v0^2 + 2ax
+
+The query also discusses the behavior of a ball at its peak, the signs of position, velocity, and acceleration during ascent and descent, and the motion of a rock tossed from the edge of a cliff.. Do not provide solution to the question, as it will be solved directly by the student.","🪨 A rock is launched at an initial velocity of 76 m/s, making an angle of 77 degrees with the horizontal. The rock travels a displacement of 43 m at an angle of 62 degrees with the horizontal over a time period of 98 seconds. 🕰️
+
+Determine the unknown variables:
+- The horizontal and vertical components of acceleration
+- The horizontal and vertical components of the final velocity
+ <Valid>: yes"

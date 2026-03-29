@@ -126,8 +126,8 @@ def get_phyQ(cfg: DictConfig, choice: int):
         # 4. Trusted Editing.
         te_agent = TEditAgent(model_name=env["LLM_MODEL"]["INNER_MODEL"])
         state = te_agent.run(equation_prompt=prompt, question=problem)
+        logging.info(f"TE Agent State: {state}")
         if state["verdict"] == "yes":
-            logging.info(f"\n[FINAL PROMPT] {prompt=}" + "\n" + "-" * 100)
             print(f"{Style.BRIGHT}{Fore.GREEN}{state['final_question_clean'].strip()}")
             print(f"{Fore.CYAN}[SOLUTION] {state['solution'].strip()}{Style.RESET_ALL}")
             print(
