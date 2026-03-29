@@ -11,3 +11,5 @@ TOPICS/electrostatics
 TOPICS/nuclear_physics
 TOPICS/gravitation
 QdrantDB
+.env
+.cache_ggshield
