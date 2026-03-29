@@ -6,6 +6,7 @@ import pandas as pd
 sys.path.insert(0, "LLM_CONFIG")
 from LLM.llm import get_response
 from UTILS.rag_agent import RagAgent
+from UTILS.trusted_editing import TEditAgent
 from colorama import Fore, Back, Style
 from UTILS.utils import fix, load_env_vars
 from UTILS.word_change import replace_words
@@ -121,25 +122,41 @@ def get_phyQ(cfg: DictConfig, choice: int):
         )
         prompt = ins0 + prompt + ins1 + topic_words + ins2
         problem = get_response(prompt)
-        logging.info(f"\n[FINAL PROMPT] {prompt=}" + "\n" + "-" * 100)
-        print(f"{Style.BRIGHT}{Fore.GREEN}{problem.strip()}")
-        print(f"{Fore.CYAN}[HINT] {get_solution(sol, data).strip()}{Style.RESET_ALL}")
-        print("\n" + f"{Fore.BLACK}{Back.WHITE}--" * 30 + f"{Style.RESET_ALL}" + "\n")
 
-        # 4. Push the physics question in a CSV file if it's valid.
+        # 4. Trusted Editing.
+        te_agent = TEditAgent(model_name=env["LLM_MODEL"]["INNER_MODEL"])
+        state = te_agent.run(equation_prompt=prompt, question=problem)
+        if state["verdict"] == "yes":
+            logging.info(f"\n[FINAL PROMPT] {prompt=}" + "\n" + "-" * 100)
+            print(f"{Style.BRIGHT}{Fore.GREEN}{state['final_question_clean'].strip()}")
+            print(f"{Fore.CYAN}[SOLUTION] {state['solution'].strip()}{Style.RESET_ALL}")
+            print(
+                "\n" + f"{Fore.BLACK}{Back.WHITE}--" * 30 + f"{Style.RESET_ALL}" + "\n"
+            )
+
+        # 5. Push the physics question in a CSV file if it's valid.
         if cfg["Output"]["BUILD"]:
             with open(f"{cfg['Output']['Dir']}/{topic['OutputFile']}", "a") as file:
-                new_row = {"Prompt": prompt, "Question": problem}
+                new_row = {
+                    "Prompt": prompt,
+                    "Question": state["final_question_clean"]
+                    + "\n <Valid>: "
+                    + state["verdict"],
+                }
                 df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-                print(f"{prompt}, {problem}", file=file)
+                print(f"{prompt}, {state['final_question_clean']}", file=file)
             beautify(f"{cfg['Input']['TopicsDir']}/{topic['InputFile']}", data)
             df.to_csv(f"{cfg['Output']['Dir']}/{topic['OutputFile']}", index=False)
 
         # 5. Train RL
         if cfg["Train"] != 0:
-            msg = """Rate the generated physics question on solvability and novelty 
-between 0 and 1, 1 being the highest.\n-> """
-            reward = float(input(f"{Style.BRIGHT}{Fore.YELLOW}{msg}{Style.RESET_ALL}"))
+            if state["verdict"] == "yes":
+                msg = """Rate the generated physics question on solvability and novelty between 0 and 1, 1 being the highest.\n-> """
+                reward = float(
+                    input(f"{Style.BRIGHT}{Fore.YELLOW}{msg}{Style.RESET_ALL}")
+                )
+            else:
+                reward = 0.0
             if 0 <= reward <= 1:
                 rl_obj.fit(reward)
             rl_obj.save_model()
