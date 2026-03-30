@@ -34,3 +34,6 @@ Although `r1` and `r2` cancel out in the simplified equation, including them all
 - Use expanded forms to support edge cases and specific physics scenarios
 - Ensure equations are mathematically correct and follow standard notation
 - Test equations with the graph chain system to verify they generate solvable problems
+
+### Important:
+`Don't put circular equations, for example let's say we have a set of equation S(till now for the topic) and we want to add a new equation e' to the topic. Any subset of S shouldn't be able to derive the new equation e', otherwise there will be a risk of creating a graph and then selecting all variables as known.`
