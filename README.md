@@ -1,6 +1,8 @@
 # Agentic Physics Question Generator
 
+```text
 Generating high-quality Physics Word Problems (PWPs) that exhibit complexity, novelty, and enhanced solvability represents a significant, yet under-researched, challenge in educational and AI-driven content generation. Existing methodologies, including those adapted from the more explored domain of Math Word Problems (MWPs), frequently fail to produce robust content. Specifically, these approaches often result in problems that are mathematically ill-posed (unsolvable or ambiguous), overly simplistic in structure, or constrained by limited linguistic and conceptual diversity. In this paper, we introduce a novel, two-stage generative framework designed to overcome these fundamental limitations The core of our innovation is a systematic equation-chaining methodology that programmatically links multiple valid physics equations and an agentic RAG framework that dynamically selects topic words for a physics word problem. Our approach also facilitates fine-grained control over problem difficulty. In the second stage, we leverage the power of Large Language Models (LLMs) to translate this deterministic structure into a coherent and fluent natural language question. By using the equation chain and topic words as an explicit, constrained prompt, we guide the LLM to maximize linguistic diversity and contextual realism while retaining the guaranteed mathematical correctness. Through rigorous human and automated evaluations, we demonstrate that our framework achieves significant improvements across several key metrics. Our generated PWPs show a marked increase in complexity (requiring more conceptual steps), novelty (moving beyond standard textbook templates), and correctness (enhanced solvability guarantees). This work establishes our method as a reliable and promising tool for automatically creating diverse and challenging physics content suitable for both educational resource development and advanced research in symbolic reasoning.
+```
 
 ## Architecture
 
@@ -46,14 +48,17 @@ At a high level, the pipeline is:
     - `LLM_MODEL.INNER_MODEL` (for example, `gpt-4o-mini` or `claude-haiku-4-5-20251001`)
 
 ## Configure Topics and Output
-
+The config file(config.yaml, shown below) is where the main program reads the configuration.
+<img src="src/config.png" alt="Image of config file" style="width:480px;"/>
 Edit `config.yaml`:
-- `Topics`: available topic menu in CLI.
-- `Input.TopicsDir`: topic JSON location, this is also the location where the RL model is saved.s
-- `Input.LLMConfig`: model/key config file.
-- `Output.Dir`: target output directory (for example `DATASET`).
-- `Output.BUILD`: set to `1` to save generated questions.
-- `Train`: set non-zero to enable reward feedback for equation graph training.
+1. `Topics`: available topic menu in CLI.
+2. Input
+    - `Input.TopicsDir`: topic JSON location, this is also the location where the RL model is saved.s
+    - `Input.LLMConfig`: model/key config file.
+3. Output
+    - `Output.Dir`: target output directory (for example `DATASET`).
+    - `Output.BUILD`: set to `1` to save generated questions.
+4. `Train`: set non-zero to enable reward feedback for equation graph training.
 
 ## Run
 
@@ -62,6 +67,8 @@ python main.py
 ```
 
 The script prints a numbered topic menu and asks for a topic index.
+If `Train` is enabled you'll get a prompt at the end(shown in yellow)
+<img src="src/terminal2.png" alt="Image of rl-reward input" style="width:640px;"/>
 
 ## Data and Retrieval Notes
 
@@ -75,13 +82,7 @@ The script prints a numbered topic menu and asks for a topic index.
 - A sample utility test exists at `UTILS/test/test_graph_chain.py`.
 - Notebooks for experimentation and GPT-2 fine-tuning are under `QueryGPT2.ipynb` and `FINE_TUNE_GPT2/`.
 
-## Screenshots
-
-Additional visuals are in `src/`:
-- `src/config.png`
-- `src/terminal1.png`
-- `src/terminal2.png`
-
 ## Acknowledgment
 
-If you use this codebase in research or coursework, please cite or acknowledge the project.
+If you use this codebase, please cite or acknowledge appropriately.
+For questions or suggestions, open an issue or contact the maintainer.
