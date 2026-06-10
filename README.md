@@ -1,6 +1,24 @@
 # Agentic Physics Question Generator
 
-Generating high-quality Physics Word Problems (PWPs) that exhibit complexity, novelty, and enhanced solvability represents a significant, yet under-researched, challenge in educational and AI-driven content generation. Existing methodologies, including those adapted from the more explored domain of Math Word Problems (MWPs), frequently fail to produce robust content. Specifically, these approaches often result in problems that are mathematically ill-posed (unsolvable or ambiguous), overly simplistic in structure, or constrained by limited linguistic and conceptual diversity. In this paper, we introduce a novel, two-stage generative framework designed to overcome these fundamental limitations The core of our innovation is a systematic equation-chaining methodology that programmatically links multiple valid physics equations and an agentic RAG framework that dynamically selects topic words for a physics word problem. Our approach also facilitates fine-grained control over problem difficulty. In the second stage, we leverage the power of Large Language Models (LLMs) to translate this deterministic structure into a coherent and fluent natural language question. By using the equation chain and topic words as an explicit, constrained prompt, we guide the LLM to maximize linguistic diversity and contextual realism while retaining the guaranteed mathematical correctness. Through rigorous human and automated evaluations, we demonstrate that our framework achieves significant improvements across several key metrics. Our generated PWPs show a marked increase in complexity (requiring more conceptual steps), novelty (moving beyond standard textbook templates), and correctness (enhanced solvability guarantees). This work establishes our method as a reliable and promising tool for automatically creating diverse and challenging physics content suitable for both educational resource development and advanced research in symbolic reasoning.
+```text
+Generating high-quality Physics Word Problems (PWPs) that exhibit complexity, novelty, and enhanced solvability
+represents a significant, yet under-researched, challenge in educational and AI-driven content generation. Existing
+methodologies, including those adapted from the more explored domain of Math Word Problems (MWPs), frequently fail
+to produce robust content. Specifically, these approaches often result in problems that are mathematically ill-posed
+(unsolvable or ambiguous), overly simplistic in structure, or constrained by limited linguistic and conceptual diversity.
+In this paper, we introduce a novel, two-stage generative framework designed to overcome these fundamental limitations
+The core of our innovation is a systematic equation-chaining methodology that programmatically links multiple valid
+physics equations and an agentic RAG framework that dynamically selects topic words for a physics word problem. Our
+approach also facilitates fine-grained control over problem difficulty. In the second stage, we leverage the power of
+Large Language Models (LLMs) to translate this deterministic structure into a coherent and fluent natural language
+question. By using the equation chain and topic words as an explicit, constrained prompt, we guide the LLM to maximize
+linguistic diversity and contextual realism while retaining the guaranteed mathematical correctness. Through rigorous
+human and automated evaluations, we demonstrate that our framework achieves significant improvements across several key
+metrics. Our generated PWPs show a marked increase in complexity (requiring more conceptual steps), novelty (moving
+beyond standard textbook templates), and correctness (enhanced solvability guarantees). This work establishes our
+method as a reliable and promising tool for automatically creating diverse and challenging physics content suitable
+for both educational resource development and advanced research in symbolic reasoning.
+```
 
 ## Architecture
 
@@ -10,15 +28,15 @@ The architecture diagram is available in `src/`:
 
 At a high level, the pipeline is:
 1. The user picks a topic and then the algorithm selects known/unknown variables and equations for the physics question.
-2. The algorithms runs iterative retrieval from Qdrant (`RagAgent`) to build topic context.
-3. Prompt the selected LLM to generate a physics question given topic context and equations.
-4. Validate and repair question format/solvability using a LangGraph trusted-editing agent (`TEditAgent`).
+2. The algorithm runs iterative retrieval from Qdrant (`RagAgent`) to build topic context.
+3. It then prompts the selected LLM to generate a physics question given topic context and equations.
+4. Validate and repair questions format/solvability using a LangGraph trusted-editing agent (`TEditAgent`).
 5. Optionally persist outputs to CSV under `DATASET/`.
 6. The generated question is judged, the feedback is used to train an RL algorithm which selects better topic equations so that the LLM can generate better physics questions next time. 
 
 ## Repository Layout
 
-- `main.py`: CLI entrypoint for generation.
+- `main.py`: CLI and main entrypoint for physics problem generation.
 - `config.yaml`: Topic selection, output paths, trial count, and train/output switches.
 - `TOPICS/`: Topic equation graphs and variable metadata JSON files.
 - `LLM/`: LLM adapters to run different models.
