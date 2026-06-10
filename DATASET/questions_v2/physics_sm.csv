@@ -14,3 +14,46 @@ Determine the unknown variables:
 - The horizontal and vertical components of acceleration
 - The horizontal and vertical components of the final velocity
  <Valid>: yes"
+"Generate a physics question using all the known and unknown variables. You must use all the variables.
+[variables] displacement = 25 m, initial velocity = 85 m/s, final velocity = 44 m/s, force = 88 N, time = unknown, acceleration = unknown, mass = unknown.
+And you may choose to use the elements from topic phrase.
+[topic phrase] # Summary
+
+**Main Topics & Key Phrases:**
+
+- Projectile motion and kinematics
+- Stone/ball hitting ground calculations
+- Velocity components (horizontal and vertical)
+- Initial velocity and final speed
+- Time of flight
+- Maximum height
+- Equations of motion for constant acceleration
+- Kinematic equations (rectilinear motion)
+- Displacement and velocity relationships
+- Acceleration due to gravity
+- Integration and calculus methods for deriving motion equations
+- Initial position coordinates
+
+**Key Concepts Covered:**
+
+Calculations involving projectile motion parameters, derivation of kinematic equations using calculus methods, and solving problems with constant acceleration using velocity-displacement and velocity-time relationships.. Do not provide solution to the question, as it will be solved directly by the student.","# 🚀 Projectile Motion with Resistive Force
+
+A projectile is launched vertically upward with an initial velocity of 85 m/s. It experiences a constant resistive force of 88 N acting downward (in addition to gravity). After traveling a displacement of 25 m upward from its launch point, the projectile's velocity reduces to 44 m/s.
+
+**Find:**
+
+1. The acceleration of the projectile during its upward motion (m/s²)
+2. The time it takes to reach the 25 m displacement point
+3. The mass of the projectile
+4. Verify your results using at least two different kinematic equations
+
+---
+
+**Given Information:**
+- Initial velocity: u = 85 m/s
+- Final velocity: v = 44 m/s
+- Upward displacement: s = 25 m
+- Resistive force: F_r = 88 N (downward)
+- Gravitational acceleration: g = 9.8 m/s²
+- The resistive force remains constant throughout the motion
+ <Valid>: yes"
