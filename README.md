@@ -84,11 +84,12 @@ python main.py
 
 The script prints a numbered topic menu and asks for a topic index.
 If `Train` is enabled you'll get a prompt at the end(shown in yellow)
+
 <img src="src/terminal2.png" alt="Image of rl-reward input" style="width:640px;"/>
 
-## Data and Retrieval Notes
+## Data and RAG Notes
 
-- Topic collections used by default include `env_sm`, `env_np`, `env_g`, and `env_elec`.
+- The text for each topic must be prefixed with the corresponding collection identifier specified in `CollectionName` within `config.yaml`. For example, use `env_sm`, `env_np`, `env_g`, and `env_elec` as the prefixes for their respective topics.
 - Qdrant uses local persistence at `QdrantDB/`.
 - Source PDFs for collection building are loaded from `RAW_TEXT/<collection_name>*.pdf`.
 
