@@ -23,6 +23,10 @@ Topics:
     OutputFile: "questions_v2/physics_elec.csv"
     Trials: 1
 
+  - Name: "TEST0"
+    InputFile: "test0.json"
+    Trials: 100
+
 Input:
   TopicsDir: "TOPICS"
   LLMConfig: "LLM_CONFIG/config.json"

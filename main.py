@@ -148,7 +148,7 @@ def get_phyQ(cfg: DictConfig, choice: int):
             beautify(f"{cfg['Input']['TopicsDir']}/{topic['InputFile']}", data)
             df.to_csv(f"{cfg['Output']['Dir']}/{topic['OutputFile']}", index=False)
 
-        # 5. Train RL
+        # 6. Train RL
         if cfg["Train"] != 0:
             if state["verdict"] == "yes":
                 msg = """Rate the generated physics question on solvability and novelty between 0 and 1, 1 being the highest.\n-> """
@@ -167,11 +167,16 @@ def main():
     print(
         f"{Style.BRIGHT}{Fore.GREEN}Which topics do you want to generate questions from?\n"
     )
+    sz = 0
     for i in range(len(cfg.Topics)):
-        print(f"{i}. {cfg.Topics[i].Name}")
+        # All the test topics must be at the end.
+        if cfg.Topics[i].Name[:4] == "TEST":
+            break
+        print(f"{sz}. {cfg.Topics[i].Name}")
+        sz += 1
     print(f"{Style.RESET_ALL}")
     choice = int(input(f"{Style.BRIGHT}Choose the index of the topic: "))
-    if choice < 0 or choice >= len(cfg.Topics):
+    if choice < 0 or choice > sz:
         print(f"{Style.BRIGHT}Wrong Choice!!\n")
     print(f"{Style.RESET_ALL}")
     get_phyQ(cfg, choice)
