@@ -13,6 +13,15 @@ def config():
     cfg['Train'] = 1.0
     return cfg
 
+def aggregate_node_values(state_dict):
+    node = {}
+    for k, v in state_dict.items():
+        if isinstance(k, tuple):
+            if k[0] not in node:
+                node[k[0]] = 0
+            node[k[0]] += v
+    return node
+
 def test_equation_set0(config, choice=4):
     combo_reward = {
         (0, 1): 1.0,
@@ -37,9 +46,13 @@ def test_equation_set0(config, choice=4):
         data = json.load(file)
     all_prompts, all_solutions, all_units, all_rl_objs = True, True, True, True
     dist_before = inference_distribution(ITER)
+    print(f"Distribution before training: {dist_before}")
     file = open('traj0.txt', 'w')
+    first_rl_obj = None
     for i in range(ITER):
         prompt, sol, units_p, rl_obj = generate_question_variables(data, config, choice)
+        if first_rl_obj is None:
+            first_rl_obj = rl_obj
         all_prompts &= prompt is not None
         all_solutions &= sol is not None
         all_units &= units_p is not None
@@ -53,7 +66,6 @@ def test_equation_set0(config, choice=4):
                 rl_obj.fit(reward)
             rl_obj.save_model()
     dist_after = inference_distribution(ITER)
-    print(f"Distribution before training: {dist_before}")
     print(f"Distribution after training: {dist_after}")
     assert all_prompts and all_solutions and all_units and all_rl_objs
     
@@ -63,6 +75,11 @@ def test_equation_set0(config, choice=4):
     # Check if the probability of the worst solution decreased
     assert dist_after[(0, 2)] < dist_before[(0, 2)]
     
+    # Check value functions of each equation nodes
+    node_before = aggregate_node_values(first_rl_obj.action_value)
+    node_after = aggregate_node_values(rl_obj.action_value)
+    assert node_after[0] > node_after[1] > node_after[2]  # Node 0 should have increased value
+
     # Code cleanup: remove any saved model files after the test
     model_dir = config["Input"]["TopicsDir"]
     for file_name in os.listdir(model_dir):
