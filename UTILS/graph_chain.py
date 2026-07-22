@@ -56,9 +56,19 @@ class GraphEquation:
 
     def getEquation(self):
         """Traverse the topic specific equation graph create known and unkwon variables
-           for the N equations.
+        for the N equations.
         """
-        qid = np.random.randint(len(self.adj))
+        def get_start_node():
+            n = len(self.adj)
+            nodes = np.array([1e-5] * n)
+            state_dict = self.rl_obj.action_value
+            for k, v in state_dict.items():
+                if isinstance(k, tuple):
+                    nodes[k[0]] += v
+            probabilities = nodes / np.sum(nodes)
+            return np.random.choice(range(n), p=probabilities)
+            
+        qid = get_start_node()
         threshold, eqn = 0.25, [qid]
         self.vis, unk = defaultdict(bool), defaultdict(bool)
         self.qu = [qid]
@@ -74,7 +84,7 @@ class GraphEquation:
                 if edge[1] in unk or edge[0] in self.vis:
                     '''
                     After multiple tries you cannot find a new unknown variable, or
-                    the equantion has already been visited.
+                    the equation has already been visited.
                     '''
                     break
                 else:

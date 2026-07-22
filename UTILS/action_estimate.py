@@ -38,7 +38,7 @@ class PhyGraph:
         graph,
         cfg: DictConfig,
         choice: int,
-        epsilon_decay: float = 0.999,
+        epsilon_decay: float = 0.99,
         lower_epsilon: float = 0.05,
         lr: float = 0.20,
         gamma: float = 0.95
