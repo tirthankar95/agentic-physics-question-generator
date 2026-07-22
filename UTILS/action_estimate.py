@@ -40,9 +40,8 @@ class PhyGraph:
         choice: int,
         epsilon_decay: float = 0.99,
         lower_epsilon: float = 0.05,
-        lr: float = 0.20,
+        lr: float = 0.15,
         gamma: float = 0.95
-        
     ):
         self.cfg, self.choice = cfg, choice
         self.graph = graph
@@ -82,6 +81,7 @@ class PhyGraph:
             if _next_edge not in unk and _next_eq not in vis:
                 break
             _iter -= 1
+        
         logger.debug(
             f"Parent: {id}, "
             + f"Child: ({_next_eq}, {_next_edge}), "
@@ -92,7 +92,10 @@ class PhyGraph:
 
     def save_trajectory(self, trajectory):
         lb, n = 0, len(trajectory)
-        while lb < n:
+        # Skip the last pair (node, final_unknown): the final unknown is chosen
+        # randomly and is not a navigational decision, so it must not contaminate
+        # bridge-edge Q-values.
+        while lb < n - 2:
             eqn_id, edge = trajectory[lb], trajectory[lb + 1]
             self.eqn_path.append((eqn_id, edge))
             lb += 2

@@ -65,11 +65,14 @@ class GraphEquation:
             for k, v in state_dict.items():
                 if isinstance(k, tuple):
                     nodes[k[0]] += v
-            probabilities = nodes / np.sum(nodes)
+            epsilon = self.rl_obj.action_value["epsilon"]
+            best_node = int(np.argmax(nodes))
+            probabilities = np.array([epsilon / n] * n)
+            probabilities[best_node] += (1 - epsilon)
             return np.random.choice(range(n), p=probabilities)
             
-        qid = get_start_node()
-        threshold, eqn = 0.25, [qid]
+        qid = get_start_node().item()
+        threshold, eqn = 0.0, [qid]
         self.vis, unk = defaultdict(bool), defaultdict(bool)
         self.qu = [qid]
         self.vis[qid] = True
@@ -78,20 +81,20 @@ class GraphEquation:
             src = self.qu.pop(0)
             path.append(src)
             # Stop Condition
-            if 0.5 + np.random.normal() >= threshold:
+            if np.random.normal() >= threshold:
                 edgeId = self.rl_obj.predict(src, unk, self.vis)
-                edge = self.adj[src][edgeId] # (eqnId, edge) 'edge is a variable'
-                if edge[1] in unk or edge[0] in self.vis:
+                eqnId, edge = self.adj[src][edgeId]
+                if edge in unk or eqnId in self.vis:
                     '''
                     After multiple tries you cannot find a new unknown variable, or
                     the equation has already been visited.
                     '''
                     break
                 else:
-                    unk[edge[1]], self.vis[edge[0]] = True, True
-                    eqn.append(edge[0])
-                    path.append(edge[1])
-                    self.qu.append(edge[0])
+                    unk[edge], self.vis[eqnId] = True, True
+                    eqn.append(eqnId)
+                    path.append(edge)
+                    self.qu.append(eqnId)
                     
         while True:
             ch = np.random.choice(self.equation_element[eqn[-1]])

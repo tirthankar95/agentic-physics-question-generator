@@ -31,12 +31,12 @@ def aggregate_node_values(state_dict):
 def test_equation_set0(config, choice=4):
     combo_reward = {
         (0, 1): 1.0,
-        (0, 2): 0.0,
+        (0, 2): 0.1,
         (1, 2): 0.5,
-        (0, 1, 2): 0.0,
-        (0,): 0.5,
-        (1,): 0.5,
-        (2,): 0.5
+        (0, 1, 2): 0.3,
+        (0,): 0.2,
+        (1,): 0.2,
+        (2,): 0.1
     }
     def inference_distribution(no_simulations: int):
         states = {k: 0 for k in combo_reward.keys()}
@@ -76,12 +76,14 @@ def test_equation_set0(config, choice=4):
     print(f"Distribution after training: {dist_after}")
     assert all_prompts and all_solutions and all_units and all_rl_objs
 
-    # Check if the frequency of the worst solution decreased
-    assert dist_after[(0, 2)] <= dist_before[(0, 2)]
-
-    # Check value functions of each equation nodes
     node_after = aggregate_node_values(rl_obj.action_value)
-    assert node_after[0] > node_after[2]
+    print(f"V(s): {node_after}")
 
     # Check if reward is increasing over time.
     assert sum(reward_arr_after) / len(reward_arr_after) > sum(reward_arr_before) / len(reward_arr_before)
+
+    # Check value functions of each equation nodes
+    assert node_after[0] > node_after[2]
+    
+    # Check if the frequency of the worst solution decreased
+    assert dist_after[(0, 2)] <= dist_before[(0, 2)]

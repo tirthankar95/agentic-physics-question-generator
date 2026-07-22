@@ -1,9 +1,9 @@
 {
      "topic": "test0",
      "equations": [
-          "a = b * c + d",
-          "u = a + b",
-          "z = c * d + a"
+          "a = b + c",
+          "u = b + k",
+          "z = c + k"
      ],
      "variable_names": {
           "a": [
@@ -36,7 +36,7 @@
                "S",
                "Z"
           ],
-          "d": [
+          "k": [
                "variable 4",
                [
                     50.0,
@@ -63,6 +63,16 @@
                     20.0
                ],
                "F",
+               "S",
+               "Z"
+          ],
+          "x": [
+               "variable 7",
+               [
+                    25.0,
+                    35.0
+               ],
+               "G",
                "S",
                "Z"
           ]
