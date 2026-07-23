@@ -16,4 +16,3 @@ QdrantDB/
 .env
 .cache_ggshield
 EXPERIMENT
-run.sh
